@@ -1,5 +1,10 @@
 public class Ticket {
     int car;
+
+    public int getArrive() {
+        return arrive;
+    }
+
     int gate;
     int arrive;
     int parks;
