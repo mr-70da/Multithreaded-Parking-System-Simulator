@@ -13,16 +13,13 @@ public class ParkingLot {
 
     public ParkingLot() {
         this.slots = new Semaphore(totalSlots, true);
-        this.waitingQueue = new LinkedList<>();  
+        this.waitingQueue = new LinkedList<>();
         logger = new Log();
     }
 
     public void addCarToQueue(Car car) {
         synchronized (this) {
             waitingQueue.add(car);
-            waitingQueue = waitingQueue.stream()
-                    .sorted(Comparator.comparingInt(Car::getArrivalTime))
-                    .collect(Collectors.toCollection(LinkedList::new));
         }
     }
 
@@ -30,15 +27,15 @@ public class ParkingLot {
         synchronized (this) {
             logger.logArrive(car);
 
-            if (slots.availablePermits() == 0) 
+            if (slots.availablePermits() == 0)
                 logger.logWait(car);
-            
+
             while (slots.availablePermits() == 0 || waitingQueue.peek() != car) {
 
-                wait(); 
+                wait();
             }
 
-            
+
             slots.acquire();
             occupiedSlots++;
             waitingQueue.poll();
@@ -59,7 +56,7 @@ public class ParkingLot {
             Car nextCar = waitingQueue.peek();
             nextCar.setWaitingTime(car.getArrivalTime(),car.getParkDuration());
         }
-        
+
         notifyAll();
     }
 }

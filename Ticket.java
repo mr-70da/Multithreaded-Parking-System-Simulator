@@ -9,6 +9,10 @@ public class Ticket {
         return arrive;
     }
 
+    public int getParks() {
+        return parks;
+    }
+
     public int getDuration(){
         return parks;
     }

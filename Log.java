@@ -28,7 +28,7 @@ public class Log {
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
         }
-        Collections.sort(tickets, Comparator.comparing(Ticket::getArrive));
+        Collections.sort(tickets, Comparator.comparing(Ticket::getArrive).thenComparing(Ticket::getParks));
         return tickets;
     }
 
@@ -59,13 +59,13 @@ public class Log {
         System.out.println(parkAfterWaitMessage);
     }
 
-    public void logSummary(ArrayList<Ticket> tickets){
+    public void printLogSummary(ArrayList<Ticket> tickets){
        int servedGates[] = new int[4];
 
         for (Ticket ticket : tickets) {
-            servedGates[ticket.getGate()]++; 
+            servedGates[ticket.getGate()]++;
         }
-        String summary = "\n...\nTotal Cars Served: " + tickets.size() + "\nCurrent Cars in Parking: 0" + "\nDetails:" + "\n-Gate 1 served " + servedGates[1]+ " cars.\n" + "\n-Gate 2 served " + servedGates[2]+ " cars." + "\n-Gate 3 served " + servedGates[3]+ " cars.";
+        String summary = "\n...\nTotal Cars Served: " + tickets.size() + "\nCurrent Cars in Parking: 0" + "\nDetails:" + "\n-Gate 1 served " + servedGates[1]+ " cars." + "\n-Gate 2 served " + servedGates[2]+ " cars." + "\n-Gate 3 served " + servedGates[3]+ " cars.";
         System.out.println(summary);
 
     }
