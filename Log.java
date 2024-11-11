@@ -33,12 +33,12 @@ public class Log {
         {
             if(tickets.get(i).getArrive() == tickets.get(i-1).getArrive() && tickets.get(i).getGate() == tickets.get(i-1).getGate())
                 throw new InvalidInputException();
-            if(tickets.get(i-1).getParks() < 1 || tickets.get(i-1).getArrive() < 1)
+            if(tickets.get(i-1).getParks() < 1 || tickets.get(i-1).getArrive() < 0)
                 throw new InvalidTimeException();
             if(tickets.get(i-1).getGate() < 1 || tickets.get(i-1).getGate() > 4)
                 throw new InvalidGateException();
         }
-        if(tickets.get(tickets.size()-1).getParks() < 1 || tickets.get(tickets.size()-1).getArrive() < 1)
+        if(tickets.get(tickets.size()-1).getParks() < 1 || tickets.get(tickets.size()-1).getArrive() < 0)
             throw new InvalidTimeException();
         if(tickets.get(tickets.size()-1).getGate() < 1 || tickets.get(tickets.size()-1).getGate() > 4)
                 throw new InvalidGateException();
