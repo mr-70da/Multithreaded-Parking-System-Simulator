@@ -29,8 +29,8 @@ public class Car extends Thread {
     public int getWaitingTime(){
         return waitingTime;
     }
-    public synchronized void setWaitingTime(int prevCarArrival, int prevCarDuration){
-        this.waitingTime = (prevCarArrival + prevCarDuration) - arrivalTime;
+    public synchronized void setWaitingTime(int prevCarArrival, int prevCarDuration,int prevWaiting){
+        this.waitingTime = (prevCarArrival + prevCarDuration + prevWaiting) - arrivalTime;
     }
 
     public void run() {

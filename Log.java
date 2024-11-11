@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Log {
-    public ArrayList<Ticket> getInput(){
+    public ArrayList<Ticket> getInput() throws Exception{
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
 
@@ -29,6 +29,20 @@ public class Log {
             System.out.println("An error occurred.");
         }
         Collections.sort(tickets, Comparator.comparing(Ticket::getArrive).thenComparing(Ticket::getParks));
+        for(int i = 1; i < tickets.size(); ++i)
+        {
+            if(tickets.get(i).getArrive() == tickets.get(i-1).getArrive() && tickets.get(i).getGate() == tickets.get(i-1).getGate())
+                throw new InvalidInputException();
+            if(tickets.get(i-1).getParks() < 1 || tickets.get(i-1).getArrive() < 1)
+                throw new InvalidTimeException();
+            if(tickets.get(i-1).getGate() < 1 || tickets.get(i-1).getGate() > 4)
+                throw new InvalidGateException();
+        }
+        if(tickets.get(tickets.size()-1).getParks() < 1 || tickets.get(tickets.size()-1).getArrive() < 1)
+            throw new InvalidTimeException();
+        if(tickets.get(tickets.size()-1).getGate() < 1 || tickets.get(tickets.size()-1).getGate() > 4)
+                throw new InvalidGateException();
+
         return tickets;
     }
 

@@ -26,12 +26,14 @@ public class ParkingLot {
     public void tryPark(Car car) throws InterruptedException {
         synchronized (this) {
             logger.logArrive(car);
-
+            Boolean hasWaited = false;
             if (slots.availablePermits() == 0)
+            {
+                hasWaited = true;
                 logger.logWait(car);
 
+            }
             while (slots.availablePermits() == 0 || waitingQueue.peek() != car) {
-
                 wait();
             }
 
@@ -40,7 +42,7 @@ public class ParkingLot {
             occupiedSlots++;
             waitingQueue.poll();
 
-            if (car.getWaitingTime() > 0) {
+            if (hasWaited) {
                 logger.logParkAFterWait(car, occupiedSlots);
             } else {
                 logger.logPark(car, occupiedSlots);
@@ -54,7 +56,7 @@ public class ParkingLot {
         logger.logLeave(car, occupiedSlots);
         if (!waitingQueue.isEmpty()) {
             Car nextCar = waitingQueue.peek();
-            nextCar.setWaitingTime(car.getArrivalTime(),car.getParkDuration());
+            nextCar.setWaitingTime(car.getArrivalTime(),car.getParkDuration(),car.getWaitingTime());
         }
 
         notifyAll();
