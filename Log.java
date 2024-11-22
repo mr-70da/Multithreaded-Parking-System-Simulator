@@ -7,7 +7,7 @@ public class Log {
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
 
-            File file = new File("input.txt");
+            File file = new File("Multithreaded-Parking-System-Simulation/input.txt");
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 String data = s.nextLine();
